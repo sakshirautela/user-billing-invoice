@@ -1,63 +1,79 @@
 export default function AddDetails({ items, updateInvoiceData }) {
-  const handleItemChange = (index, field, value) => {
-    updateInvoiceData((prev) => {
-      const updatedItems = [...prev.items];
-      updatedItems[index][field] = field === "name" ? value : parseFloat(value) || 0;
-      const subtotal = updatedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      return {
-        ...prev,
-        items: updatedItems,
-        total: subtotal ,
-      };
-    });
-  };
+const handleItemChange = (index, field, value) => {
+  updateInvoiceData((prev) => {
+    const updatedItems = [...prev.items];
+    
+    if (field === "name") {
+      updatedItems[index][field] = value;
+    } else {
+      updatedItems[index][field] = parseFloat(value) || 0;
+    }
+    let subtotal=0;
+    for (let item of updatedItems) {
+      subtotal += item.price * item.quantity;
+    }
+    return {
+      ...prev,
+      items: updatedItems,
+      total: subtotal,
+    };
+  });
+};
 
-  const handleAddItem = () => {
-    updateInvoiceData((prev) => {
-      const hasInvalidItem = prev.items.some(
-        (item) => !item.name || item.price <= 0 || item.quantity <= 0
-      );
-      if (hasInvalidItem) {
+const handleAddItem = () => {
+  updateInvoiceData((prev) => {
+    for (let item of prev.items) {
+      if (!item.name || item.price <= 0 || item.quantity <= 0) {
         alert("Please fill out all fields correctly before adding a new item.");
         return prev;
       }
-      return {
-        ...prev,
-        items: [...prev.items, { name: "", price: '', quantity: '' }],
-      };
-    });
-  };
+    }
 
-  const removeItem = (index) => {
-    updateInvoiceData((prev) => {
-      const updatedItems = prev.items.filter((_, i) => i !== index);
-      const subtotal = updatedItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      return {
-        ...prev,
-        items: updatedItems,
-        total: subtotal ,
-      };
-    });
-  };
+    const newItem = { name: "", price: 0, quantity: 0 };
+    return {
+      ...prev,
+      items: [...prev.items, newItem],
+    };
+  });
+};
 
-  const handleGstChange = (rate) => {
-    updateInvoiceData((prev) => {
-      const gstRate = parseFloat(rate);
-      const subtotal = prev.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
-      return {
-        ...prev,
-        gst: gstRate,
-        total: subtotal ,
-      };
-    });
-  };
+const removeItem = (index) => {
+  updateInvoiceData((prev) => {
+    const updatedItems = prev.items.filter((_, i) => i !== index);
+    let subtotal = 0;
+    for (let item of updatedItems) {
+      subtotal += item.price * item.quantity;
+    }
+    return {
+      ...prev,
+      items: updatedItems,
+      total: subtotal,
+    };
+  });
+};
+
+const handleGstChange = (rate) => {
+  updateInvoiceData((prev) => {
+    const gstRate = parseFloat(rate);
+    let subtotal = 0;
+    for (let item of prev.items) {
+      subtotal += item.price * item.quantity;
+    }
+
+    return {
+      ...prev,
+      gst: gstRate,
+      total: subtotal,
+    };
+  });
+};
+
 
   return (
     <>
       <h1>-----Billing Invoice-----</h1>
       <input
         type="text"
-        placeholder="Customer Name"
         onChange={(e) =>
           updateInvoiceData((prev) => ({ ...prev, customerName: e.target.value }))
         }
@@ -65,7 +81,6 @@ export default function AddDetails({ items, updateInvoiceData }) {
       <br />
       <input
         type="text"
-        placeholder="Address"
         onChange={(e) =>
           updateInvoiceData((prev) => ({ ...prev, address: e.target.value }))
         }

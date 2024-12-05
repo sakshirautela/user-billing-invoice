@@ -22,10 +22,11 @@ function App() {
 
   return (
     <>
+    <div class="background-image">
       <div className="split left">
         <div className="centered">
           <AddDetails
-            items={invoiceData.items} // Pass items as a prop
+            items={invoiceData.items}
             updateInvoiceData={(updateFunc) =>
               setInvoiceData((prev) => updateFunc(prev))
             }
@@ -44,6 +45,7 @@ function App() {
           />
           <button onClick={handlToPrint}>Print</button>
         </div>
+      </div>
       </div>
     </>
   );
