@@ -1,0 +1,161 @@
+/* General Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f4f4f9;
+  color: #333;
+}
+
+/* Split Screen Layout */
+.split {
+  height: 100vh;
+  width: 50%;
+  position: fixed;
+  overflow: auto;
+}
+
+.left {
+  left: 0;
+  background-color: #ffffff;
+  padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.right {
+  right: 0;
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+/* Centered Content */
+.centered {
+  max-width: 600px;
+  margin: auto;
+  text-align: left;
+}
+
+/* Heading */
+h1 {
+  color: #4a90e2;
+  text-align: center;
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+}
+
+/* Input Fields */
+input[type="text"],
+input[type="number"] {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+input[type="text"]:focus,
+input[type="number"]:focus {
+  border-color: #4a90e2;
+  outline: none;
+  box-shadow: 0 0 5px rgba(74, 144, 226, 0.5);
+}
+
+/* Table Styles */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+table th,
+table td {
+  padding: 10px;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+table th {
+  background-color: #4a90e2;
+  color: white;
+  text-transform: uppercase;
+}
+
+table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Buttons */
+button {
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  margin-top: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #357abf;
+}
+
+button:disabled {
+  background-color: #ccc;
+  cursor: not-allowed;
+}
+
+/* GST Section */
+h3 {
+  margin-top: 20px;
+  color: #4a90e2;
+  font-size: 1.2rem;
+}
+
+label {
+  font-size: 1rem;
+  margin-right: 10px;
+  color: #555;
+}
+
+input[type="radio"] {
+  margin-right: 5px;
+}
+
+/* Invoice Section */
+.invoice-table {
+  border: 1px solid #ddd;
+  margin-top: 20px;
+}
+
+.invoice-table th,
+.invoice-table td {
+  padding: 10px;
+  text-align: left;
+  border: 1px solid #ddd;
+}
+
+.invoice-table th {
+  background-color: #4a90e2;
+  color: white;
+}
+
+.invoice-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .split {
+    width: 100%;
+    position: relative;
+  }
+
+  .left,
+  .right {
+    height: auto;
+    box-shadow: none;
+  }
+}
