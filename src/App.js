@@ -35,7 +35,7 @@ function App() {
       </div>
 
       <div className="split right">
-        <div className="centered" ref={componentRef}>
+        <div ref={componentRef} className="centered" >
           <ShowDetails
             items={invoiceData.items}
             name={invoiceData.customerName}
