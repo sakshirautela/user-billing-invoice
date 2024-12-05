@@ -131,7 +131,7 @@ const handleGstChange = (rate) => {
       <br />
 
       <h3>GST:</h3>
-      {[18, 0.25, 5, 12, 28].map((rate) => (
+      {[18, 0.25, 5, 12, 28,0].map((rate) => (
         <label key={rate} style={{ marginRight: "10px" }}>
           <input
             type="radio"
