@@ -1,27 +1,53 @@
-import React, { useRef } from "react";
+import React, { useState, useRef } from "react";
+import AddDetails from "./components/details";
+import ShowDetails from "./components/showdetails";
+import "./App.css";
+import "bootstrap/dist/css/bootstrap.css";
 import { useReactToPrint } from "react-to-print";
-
-const ComponentToPrint = React.forwardRef((props, ref) => (
-  <div ref={ref}>
-    <h1>Invoice</h1>
-    <p>Customer Name: John Doe</p>
-    <p>Address: 123 Main St</p>
-    <p>Total: $100</p>
-  </div>
-));
 
 function App() {
   const componentRef = useRef();
-
-  const handleToPrint = useReactToPrint({
+  
+  const handlToPrint = useReactToPrint({
     content: () => componentRef.current,
   });
 
+  const [invoiceData, setInvoiceData] = useState({
+    customerName: "",
+    address: "",
+    items: [{ name: "", price: '', quantity: '' }],
+    gst: 0,
+    total: 0,
+  });
+
   return (
-    <div>
-      <ComponentToPrint ref={componentRef} />
-      <button onClick={handleToPrint}>Print</button>
-    </div>
+    <>
+    <div class="background-image">
+      <div className="split left">
+        <div className="centered">
+          <AddDetails
+            items={invoiceData.items}
+            updateInvoiceData={(updateFunc) =>
+              setInvoiceData((prev) => updateFunc(prev))
+            }
+          />
+        </div>
+      </div>
+
+      <div className="split right">
+        <div ref={componentRef} className="centered" >
+          <ShowDetails
+            items={invoiceData.items}
+            name={invoiceData.customerName}
+            address={invoiceData.address}
+            sum={invoiceData.total}
+            gst={invoiceData.gst}
+          />
+          <button onClick={handlToPrint}>Print</button>
+        </div>
+      </div>
+      </div>
+    </>
   );
 }
 
