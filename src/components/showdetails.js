@@ -31,7 +31,7 @@ export default function ShowDetails({ items, name, address, sum, gst }) {
             </tr>
             <tr>
               <td>GST:</td>
-              <td>{gst }</td> {/* Ensure GST is not negative */}
+              <td>{gst }%</td> {/* Ensure GST is not negative */}
             </tr>
             <tr>
               <td>Total:</td>

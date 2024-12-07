@@ -24,7 +24,7 @@ const handleAddItem = () => {
   updateInvoiceData((prev) => {
     for (let item of prev.items) {
       if (!item.name || item.price <= 0 || item.quantity <= 0) {
-        alert("Please fill out all fields correctly before adding a new item.");
+        alert("Please fill out all fields correctly before adding a new item. name cant be null and quantiy cant be negative ");
         return prev;
       }
     }
