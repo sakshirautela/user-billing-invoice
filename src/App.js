@@ -11,10 +11,14 @@ export default function App() {
   });
   const [gst, setGst] = useState(18);
   const [isEdit, setIsEdit] = useState(false);
-  const [editIndex, setEditIndex] = useState(null); 
+  const [editIndex, setEditIndex] = useState(null);
   const [customerDetails, setCustomerDetails] = useState({ customerName: "", address: "" });
 
   const AddOrUpdateItem = () => {
+    if (invoiceItem.name === '' || invoiceItem.price <= 0 || invoiceItem.quantity <= 0) {
+      alert("enter valid  details")
+      return;
+    }
     if (isEdit && editIndex !== null) {
       setInvoiceData((prev) => ({
         ...prev,
@@ -23,6 +27,12 @@ export default function App() {
         ),
       }));
     } else {
+      const isDuplicate = invoiceData.items.some(item => item.name === invoiceItem.name);
+      if (isDuplicate) {
+        alert("Item already exists");
+        return;
+      }
+
       setInvoiceData((prev) => ({
         ...prev,
         items: [...prev.items, invoiceItem],
@@ -36,7 +46,7 @@ export default function App() {
   const Edit = (index) => {
     setIsEdit(true);
     setEditIndex(index);
-    setInvoiceItem(invoiceData.items[index]); 
+    setInvoiceItem(invoiceData.items[index]);
     console.log(invoiceData.items[index])
   };
 
@@ -46,7 +56,7 @@ export default function App() {
       items: prev.items.filter((data, i) => i !== index),
     }));
   };
-  const Cancel=()=>{
+  const Cancel = () => {
     setInvoiceItem({ name: "", price: "", quantity: "" });
     setIsEdit(false);
     setEditIndex(null);
@@ -90,7 +100,7 @@ export default function App() {
                   <td>
                     <input
                       type="text"
-                      value={invoiceItem.name }
+                      value={invoiceItem.name}
                       onChange={(e) => setInvoiceItem({ ...invoiceItem, name: e.target.value })}
                     />
                   </td>
@@ -99,7 +109,7 @@ export default function App() {
                       type="number"
                       value={invoiceItem.price}
                       onChange={(e) =>
-                        setInvoiceItem({ ...invoiceItem, price: parseFloat(e.target.value)  })
+                        setInvoiceItem({ ...invoiceItem, price: parseFloat(e.target.value) })
                       }
                     />
                   </td>

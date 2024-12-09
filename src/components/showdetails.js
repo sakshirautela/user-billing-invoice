@@ -3,6 +3,7 @@ import { useReactToPrint } from "react-to-print";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
+import './showdetails.css'
 export default function ShowDetails({ items, customerDetails, sum, gst,Edit,Delete }) {
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
@@ -24,6 +25,7 @@ export default function ShowDetails({ items, customerDetails, sum, gst,Edit,Dele
                 <th>Price </th>
                 <th>Quantity </th>
                 <th>Total (Price*Quantity) </th>
+              <td>Actions</td> 
                 <th></th>
               </tr>
             </thead>
@@ -32,8 +34,8 @@ export default function ShowDetails({ items, customerDetails, sum, gst,Edit,Dele
                 items.map((item,index) => (
                   <tr key={index}>
                     <td>{item.name}</td>
-                    <td>{item.quantity}</td>
                     <td>₹{item.price}</td> 
+                    <td>{item.quantity}</td>
                     <td>₹{(item.price * item.quantity)}</td> 
                     <td>
                       <div className="button-container">
@@ -69,15 +71,7 @@ export default function ShowDetails({ items, customerDetails, sum, gst,Edit,Dele
 
         </div>
       </div>
-      <div className="button-container">
-        <button className="Hover">
-          <EditNoteOutlinedIcon />
-        </button>
-        <button className="Hover">
-          <DeleteForeverOutlinedIcon />
-        </button>
-      </div>
-
+      
       <button onClick={handlePrint}><LocalPrintshopOutlinedIcon/></button>
 
     </>
