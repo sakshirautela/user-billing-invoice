@@ -176,11 +176,15 @@ input[type="radio"] {
   cursor: pointer;
   padding: 5px;
   margin: 5px;
+  height: 0px;
+  width: 0px;
   transition: ease-in-out 0.3s white;
 }
 .Hover:hover{
   box-shadow: inset 300px 0 0 0 white;
   cursor: pointer;
+  height: 30px;
+  width: 30px;
   color: red;
 }
 

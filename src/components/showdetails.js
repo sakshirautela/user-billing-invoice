@@ -24,6 +24,7 @@ export default function ShowDetails({ items, customerDetails, sum, gst, Edit, De
                 <th>Price </th>
                 <th>Quantity </th>
                 <th>Total (Price*Quantity) </th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
