@@ -31,7 +31,7 @@ body {
 
 .right {
   right: 0;
-  background-color:antiquewhite;
+  background-color:white;
   padding: 20px;
 }
 
@@ -166,3 +166,21 @@ input[type="radio"] {
     box-shadow: none;
   }
 }
+.ButtonSlide{
+  display: flex;
+
+}
+.Hover {
+  color:  white;
+  background-color:  white;
+  cursor: pointer;
+  padding: 5px;
+  margin: 5px;
+  transition: ease-in-out 0.3s white;
+}
+.Hover:hover{
+  box-shadow: inset 300px 0 0 0 white;
+  cursor: pointer;
+  color: red;
+}
+

@@ -3,8 +3,7 @@ import { useReactToPrint } from "react-to-print";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
-import './showdetails.css'
-export default function ShowDetails({ items, customerDetails, sum, gst,Edit,Delete }) {
+export default function ShowDetails({ items, customerDetails, sum, gst, Edit, Delete }) {
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
@@ -25,26 +24,27 @@ export default function ShowDetails({ items, customerDetails, sum, gst,Edit,Dele
                 <th>Price </th>
                 <th>Quantity </th>
                 <th>Total (Price*Quantity) </th>
-              <td>Actions</td> 
                 <th></th>
               </tr>
             </thead>
             <tbody>
-            {items.length > 0 ? (
-                items.map((item,index) => (
+              {items.length > 0 ? (
+                items.map((item, index) => (
                   <tr key={index}>
                     <td>{item.name}</td>
-                    <td>₹{item.price}</td> 
+                    <td>₹{item.price}</td>
                     <td>{item.quantity}</td>
-                    <td>₹{(item.price * item.quantity)}</td> 
-                    <td>
-                      <div className="button-container">
-                        <button className="Hover" onClick={() => Edit(index)}>
-                          <EditNoteOutlinedIcon />
-                        </button>
-                        <button className="Hover" onClick={() => Delete(index)}>
-                          <DeleteForeverOutlinedIcon />
-                        </button>
+                    <td>₹{(item.price * item.quantity)}</td>
+                    <td >
+                      <div className="HoverConatiner">
+                      <div className="ButtonSlide">
+                          <button className="Hover" onClick={() => Edit(index)}>
+                            <EditNoteOutlinedIcon />
+                          </button>
+                          <button className="Hover" onClick={() => Delete(index)}>
+                            <DeleteForeverOutlinedIcon />
+                          </button>
+                        </div>
                       </div>
                     </td>
                   </tr>
@@ -56,23 +56,23 @@ export default function ShowDetails({ items, customerDetails, sum, gst,Edit,Dele
               )}
               <tr>
                 <td>Sub Total:</td>
-                <td>{sum}</td> 
+                <td>{sum}</td>
               </tr>
               <tr>
                 <td>GST:</td>
-                <td>{gst}%</td> 
+                <td>{gst}%</td>
               </tr>
               <tr>
                 <td>Total:</td>
-                <td>{total}</td> 
+                <td>{total}</td>
               </tr>
             </tbody>
           </table>
 
         </div>
       </div>
-      
-      <button onClick={handlePrint}><LocalPrintshopOutlinedIcon/></button>
+
+      <button onClick={handlePrint}><LocalPrintshopOutlinedIcon /></button>
 
     </>
 
