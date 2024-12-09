@@ -37,7 +37,7 @@ export default function ShowDetails({ items, customerDetails, sum, gst,Edit,Dele
                     <td>₹{(item.price * item.quantity)}</td> 
                     <td>
                       <div className="button-container">
-                        <button className="Hover" onClick={() => Edit(item)}>
+                        <button className="Hover" onClick={() => Edit(index)}>
                           <EditNoteOutlinedIcon />
                         </button>
                         <button className="Hover" onClick={() => Delete(index)}>
@@ -54,15 +54,15 @@ export default function ShowDetails({ items, customerDetails, sum, gst,Edit,Dele
               )}
               <tr>
                 <td>Sub Total:</td>
-                <td>{sum}</td> {/* Ensure subtotal is not negative */}
+                <td>{sum}</td> 
               </tr>
               <tr>
                 <td>GST:</td>
-                <td>{gst}%</td> {/* Ensure GST is not negative */}
+                <td>{gst}%</td> 
               </tr>
               <tr>
                 <td>Total:</td>
-                <td>{total}</td> {/* Ensure total is not negative */}
+                <td>{total}</td> 
               </tr>
             </tbody>
           </table>

@@ -1,44 +1,57 @@
 import React, { useState } from "react";
-import AddDetails from "./components/details";
-import EditDetails from "./components/editDetails";
-import ShowDetails from "./components/showdetails";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
+import ShowDetails from './components/showdetails'
 
-function App() {
-  // const [invoiceData, setInvoiceData] = useState({
-  //   customerName: "",
-  //   address: "",
-  //   items: [{ name: "", price: 0, quantity: 0,id:0 }],
-  //   gst: 18,
-  //   total: 0,
-  // });
-
-  const [invoiceItem, setInvoiceItem] = useState({ name: "", price: '', quantity: '', id: 0 })
+export default function App() {
+  const [invoiceItem, setInvoiceItem] = useState({ name: "", price: "", quantity: "" });
   const [invoiceData, setInvoiceData] = useState({
     items: [],
     total: 0,
-  })
+  });
   const [gst, setGst] = useState(18);
   const [isEdit, setIsEdit] = useState(false);
+  const [editIndex, setEditIndex] = useState(null); 
   const [customerDetails, setCustomerDetails] = useState({ customerName: "", address: "" });
-  const Update = (updatedItem) => {
+
+  const AddOrUpdateItem = () => {
+    if (isEdit && editIndex !== null) {
+      setInvoiceData((prev) => ({
+        ...prev,
+        items: prev.items.map((item, index) =>
+          index === editIndex ? { ...invoiceItem } : item
+        ),
+      }));
+    } else {
+      setInvoiceData((prev) => ({
+        ...prev,
+        items: [...prev.items, invoiceItem],
+      }));
+    }
+    setInvoiceItem({ name: "", price: "", quantity: "" });
+    setIsEdit(false);
+    setEditIndex(null);
+  };
+
+  const Edit = (index) => {
+    setIsEdit(true);
+    setEditIndex(index);
+    setInvoiceItem(invoiceData.items[index]); 
+    console.log(invoiceData.items[index])
+  };
+
+  const Delete = (index) => {
     setInvoiceData((prev) => ({
       ...prev,
-      items: prev.items.map((item) => (item.id === updatedItem.id ? updatedItem : item)),
+      items: prev.items.filter((data, i) => i !== index),
     }));
-    setIsEdit(false);
   };
-  const Edit=(item)=>{
-    setIsEdit(true);
-    setInvoiceItem({name:item.name,price:item.price,quantity:item.quantity,id:5});
-    console.log(item)
-    console.log(invoiceItem)
+  const Cancel=()=>{
+    setInvoiceItem({ name: "", price: "", quantity: "" });
+    setIsEdit(false);
+    setEditIndex(null);
   }
-  const Delete = (id) => {
-    const updated = invoiceData.items.filter((items, index) => index !== id)
-    setInvoiceData(updated)
-  }
+
   return (
     <>
       <div className="background-image">
@@ -49,46 +62,80 @@ function App() {
               type="text"
               placeholder="Customer Name"
               value={customerDetails.customerName}
-              onChange={(val) => setCustomerDetails({ ...customerDetails, customerName: val.target.value })}
+              onChange={(val) =>
+                setCustomerDetails({ ...customerDetails, customerName: val.target.value })
+              }
             />
             <br />
             <input
               type="text"
               placeholder="Address"
               value={customerDetails.address}
-              onChange={(val) => setCustomerDetails({ ...customerDetails, address: val.target.value })}
+              onChange={(val) =>
+                setCustomerDetails({ ...customerDetails, address: val.target.value })
+              }
             />
             <br />
-            {/* {isEdit ? (
-              <EditDetails itemEdit={invoiceItem}
-                Update={Update}
-                Cancel={() => setIsEdit(false)} />
-            ) : ( */}
-              <AddDetails
-                invoiceData={invoiceData}
-                invoiceItem={invoiceItem}
-                updateInvoiceData={(updateFunc) =>
-                  setInvoiceData((prev) => updateFunc(prev))
-                }
-                idx={0}
-                isEdit={isEdit}
-                update={Update}
-                Cancel={() => setIsEdit(false)}
-              />
-            {/* )} */}
+            <table>
+              <thead>
+                <tr>
+                  <th>Item Name</th>
+                  <th>Price</th>
+                  <th>Quantity</th>
+                  <th></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <input
+                      type="text"
+                      value={invoiceItem.name }
+                      onChange={(e) => setInvoiceItem({ ...invoiceItem, name: e.target.value })}
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      value={invoiceItem.price}
+                      onChange={(e) =>
+                        setInvoiceItem({ ...invoiceItem, price: parseFloat(e.target.value)  })
+                      }
+                    />
+                  </td>
+                  <td>
+                    <input
+                      type="number"
+                      value={invoiceItem.quantity}
+                      onChange={(e) =>
+                        setInvoiceItem({ ...invoiceItem, quantity: parseInt(e.target.value) })
+                      }
+                    />
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <button onClick={AddOrUpdateItem}>{isEdit ? "Update" : "Add"}</button>
+            {isEdit && <button onClick={Cancel}>Cancel</button>}
           </div>
         </div>
 
         <div className="split right">
-          <div className="centered" >
-            <ShowDetails items={invoiceData.items} customerDetails={customerDetails} sum={invoiceData.total} gst={gst} Edit={Edit} Delete={Delete}
+          <div className="centered">
+            <ShowDetails
+              items={invoiceData.items}
+              customerDetails={customerDetails}
+              sum={invoiceData.items.reduce(
+                (sum, item) => sum + item.price * item.quantity,
+                0
+              )}
+              gst={gst}
+              Edit={Edit}
+              Delete={Delete}
             />
           </div>
         </div>
       </div>
-
     </>
   );
-}
-
-export default App;
+}  

@@ -1,19 +1,22 @@
 .button-container {
-    position: relative; /* To contain the buttons within the container */
-  }
-  
-  .Hover {
-    display: none; /* Hide the buttons by default */
-  }
-  
-  .button-container:hover .Hover {
-    display: inline-block; /* Show the buttons on hover of the container */
-  }
-  
-  button.Hover {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    padding: 5px;
-  }
-  
+  position: relative; /* To contain the buttons within the container */
+  display: block; /* Make the container visible */
+}
+
+.button-container .Hover {
+  display: none; /* Hide the buttons by default */
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+}
+
+.button-container:hover .Hover {
+  display: inline-block; /* Show the buttons on hover of the container */
+}
+
+/* Optional: Add hover effect for the button itself */
+button.Hover:hover {
+  background-color: rgba(0, 0, 0, 0.1); /* Light background color on hover */
+  transition: background-color 0.3s ease; /* Smooth transition */
+}
