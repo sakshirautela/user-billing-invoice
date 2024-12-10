@@ -1,17 +1,29 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
 import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
 import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
 import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
 export default function ShowDetails({ items, customerDetails, sum, gst, Edit, Delete }) {
+  const [showAction,setShowAction]=useState(true);
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
+    onBeforePrint:()=>setShowAction(false),
+    onAfterPrint:()=>setShowAction(true),
   })
   const total = sum + (gst * sum) / 100;
 
   return (
     <>
+    <style>
+        {`
+          @media print {
+            .HoverConatiner {
+              display: none !important;
+            }
+          }
+        `}
+      </style>
       <div >
         <div ref={componentRef}>
           <h1>Invoice</h1>
@@ -36,7 +48,7 @@ export default function ShowDetails({ items, customerDetails, sum, gst, Edit, De
                     <td>{item.quantity}</td>
                     <td>₹{(item.price * item.quantity)}</td>
                     <td >
-                      <div className="HoverConatiner">
+                      {showAction && <div className="HoverConatiner">
                       <div className="ButtonSlide">
                           <button className="Hover" onClick={() => Edit(index)}>
                             <EditNoteOutlinedIcon />
@@ -45,7 +57,7 @@ export default function ShowDetails({ items, customerDetails, sum, gst, Edit, De
                             <DeleteForeverOutlinedIcon />
                           </button>
                         </div>
-                      </div>
+                      </div>}
                     </td>
                   </tr>
                 ))
@@ -56,15 +68,24 @@ export default function ShowDetails({ items, customerDetails, sum, gst, Edit, De
               )}
               <tr>
                 <td>Sub Total:</td>
+                <td></td>
+                <td></td>
                 <td>{sum}</td>
+                <td></td>
               </tr>
               <tr>
                 <td>GST:</td>
+                <td></td>
+                <td></td>
                 <td>{gst}%</td>
+                <td></td>
               </tr>
               <tr>
                 <td>Total:</td>
+                <td></td>
+                <td></td>
                 <td>{total}</td>
+                <td></td>
               </tr>
             </tbody>
           </table>

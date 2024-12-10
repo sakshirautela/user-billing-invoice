@@ -2,14 +2,16 @@ import React, { useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import ShowDetails from './components/showdetails'
+import { Check } from "@mui/icons-material";
 
 export default function App() {
   const [invoiceItem, setInvoiceItem] = useState({ name: "", price: "", quantity: "" });
+  const gstOptions=[0,0.25,5,18,12,28];
   const [invoiceData, setInvoiceData] = useState({
     items: [],
     total: 0,
   });
-  const [gst, setGst] = useState(18);
+  const [gst, setGst] = useState(0);
   const [isEdit, setIsEdit] = useState(false);
   const [editIndex, setEditIndex] = useState(null);
   const [customerDetails, setCustomerDetails] = useState({ customerName: "", address: "" });
@@ -51,11 +53,20 @@ export default function App() {
   };
 
   const Delete = (index) => {
+    const todelete = invoiceData.items[index];
+    if (
+      invoiceItem.name === todelete.name &&
+      invoiceItem.price === todelete.price &&
+      invoiceItem.quantity === todelete.quantity
+    ) {
+      setInvoiceItem({ name: "", price: "", quantity: "" });
+    }
     setInvoiceData((prev) => ({
       ...prev,
-      items: prev.items.filter((data, i) => i !== index),
+      items: prev.items.filter((_, i) => i !== index),
     }));
   };
+  
   const Cancel = () => {
     setInvoiceItem({ name: "", price: "", quantity: "" });
     setIsEdit(false);
@@ -127,6 +138,13 @@ export default function App() {
             </table>
             <button onClick={AddOrUpdateItem}>{isEdit ? "Update" : "Add"}</button>
             {isEdit && <button onClick={Cancel}>Cancel</button>}
+            <h3>Select GST</h3>
+            {gstOptions.map((value,index)=>(
+            <label>
+            <input type="radio" value={value} checked={gst===value} onChange={()=>setGst(value) }/>
+            {value}%
+            </label>
+            ))}
           </div>
         </div>
 
