@@ -218,3 +218,40 @@ input[type="radio"] {
   border-radius: 8px;
 
 }
+@media screen and (max-width: 768px) {
+  .split {
+    width: 100%;
+    position: relative;
+  }
+
+  .left,
+  .right {
+    height: auto;
+    box-shadow: none;
+  }
+
+  .centered {
+    max-width: 100%;
+  }
+
+  /* Adjust button styles for mobile */
+  button {
+    width: 100%;
+    font-size: 14px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  h1 {
+    font-size: 1.8rem;
+  }
+
+  .input {
+    padding: 8px;
+  }
+
+  .invoice-table th,
+  .invoice-table td {
+    padding: 8px;
+  }
+}
