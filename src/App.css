@@ -93,28 +93,6 @@ table tr:nth-child(even) {
 }
 
 /* Buttons */
-button {
-  background-color: #4a90e2;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  margin-top: 10px;
-  margin-left: 10px;
-  margin-right: 10px;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 1rem;
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: #357abf;
-}
-
-button:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
-}
 
 /* GST Section */
 h3 {
@@ -172,16 +150,71 @@ input[type="radio"] {
   display: flex;
 
 }
-.Hover {
-  color:  white;
-  background-color:  white;
-  cursor: pointer;
-  padding: 5px;
-  margin: 5px;
-  height: 100px;
+.edit {
+  border-color: #2196F3;
+  color: dodgerblue;
+  border-radius: 8px;
 
-  width: 100px;
+}
+.edit:hover {
+  background: #2196F3;
+  color: white;
+  border-radius: 8px;
+
+}
+.delete {
+  border-color: #f44336;
   color: red;
-  transition: ease-in-out 0.3s white;
+  border-radius: 8px;
+  
 }
 
+.delete:hover {
+  background: #f44336;
+  color: white;
+  border-radius: 8px;
+
+}
+.success {
+
+  border-color: #04AA6D;
+  color: green;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 8px;
+}
+
+.success:hover {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 8px;
+
+}
+.cancel {
+
+  border-color: #f44336;
+  color: #f44336;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 8px;
+
+}
+
+.cancel:hover {
+  background-color: #f44336;
+  color: white;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 8px;
+
+}

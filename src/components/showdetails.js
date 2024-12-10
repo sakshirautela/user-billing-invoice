@@ -18,7 +18,7 @@ export default function ShowDetails({ items, customerDetails, sum, gst, Edit, De
     <style>
         {`
           @media print {
-            .HoverConatiner {
+            .ButtonSlide {
               display: none !important;
             }
           }
@@ -48,15 +48,13 @@ export default function ShowDetails({ items, customerDetails, sum, gst, Edit, De
                     <td>{item.quantity}</td>
                     <td>₹{(item.price * item.quantity)}</td>
                     <td >
-                      {showAction && <div className="HoverConatiner">
-                      <div className="ButtonSlide">
-                          <button className="Hover" onClick={() => Edit(index)}>
+                      {showAction && <div className="ButtonSlide">
+                          <button className="edit" onClick={() => Edit(index)}>
                             <EditNoteOutlinedIcon />
                           </button>
-                          <button className="Hover" onClick={() => Delete(index)}>
+                          <button className="delete" onClick={() => Delete(index)}>
                             <DeleteForeverOutlinedIcon />
                           </button>
-                        </div>
                       </div>}
                     </td>
                   </tr>
@@ -93,7 +91,7 @@ export default function ShowDetails({ items, customerDetails, sum, gst, Edit, De
         </div>
       </div>
 
-      <button onClick={handlePrint}><LocalPrintshopOutlinedIcon /></button>
+     { (items.length>0 && <button className="success" onClick={handlePrint}><LocalPrintshopOutlinedIcon /></button>)}
 
     </>
 

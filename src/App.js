@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import ShowDetails from './components/showdetails'
-import { Check } from "@mui/icons-material";
 
 export default function App() {
   const [invoiceItem, setInvoiceItem] = useState({ name: "", price: "", quantity: "" });
@@ -138,8 +137,8 @@ export default function App() {
                 </tr>
               </tbody>
             </table>
-            <button onClick={AddOrUpdateItem}>{isEdit ? "Update" : "Add"}</button>
-            {isEdit && <button onClick={Cancel}>Cancel</button>}
+            <button className="success" onClick={AddOrUpdateItem}>{isEdit ? "Update" : "Add"}</button>
+            {isEdit && <button className="cancel"  onClick={Cancel}>Cancel</button>}
             <h3>Select GST</h3>
             {gstOptions.map((value,index)=>(
             <label>
