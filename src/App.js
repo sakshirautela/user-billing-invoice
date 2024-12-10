@@ -60,6 +60,8 @@ export default function App() {
       invoiceItem.quantity === todelete.quantity
     ) {
       setInvoiceItem({ name: "", price: "", quantity: "" });
+      setIsEdit(false);
+      setEditIndex(null);
     }
     setInvoiceData((prev) => ({
       ...prev,
