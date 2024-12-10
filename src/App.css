@@ -6,6 +6,7 @@ body {
   background-color: #f4f4f9;
   color: #333;
 }
+
 .background-image {
   background-image: url('C:\Users\HP\Desktop\javaScript\projects\user-billing-invoice\src\abstrac.avif');
   background-size: cover;
@@ -13,6 +14,7 @@ body {
   background-repeat: no-repeat;
   padding: 20px; /* Optional */
 }
+
 /* Split Screen Layout */
 .split {
   height: 100vh;
@@ -31,8 +33,15 @@ body {
 
 .right {
   right: 0;
-  background-color:white;
+  background-color: white;
   padding: 20px;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Align content to the top */
+  height: 100vh; /* Full height */
+  border-left: 2px solid #ddd; /* Optional: add a border for separation */
+  overflow: hidden; /* Hide overflow */
 }
 
 /* Centered Content */
@@ -93,6 +102,69 @@ table tr:nth-child(even) {
 }
 
 /* Buttons */
+.edit {
+  border-color: #2196F3;
+  color: dodgerblue;
+  border-radius: 8px;
+}
+
+.edit:hover {
+  background: #2196F3;
+  color: white;
+  border-radius: 8px;
+}
+
+.delete {
+  border-color: #f44336;
+  color: red;
+  border-radius: 8px;
+}
+
+.delete:hover {
+  background: #f44336;
+  color: white;
+  border-radius: 8px;
+}
+
+.success {
+  border-color: #04AA6D;
+  color: green;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 8px;
+}
+
+.success:hover {
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 8px;
+}
+
+.cancel {
+  border-color: #f44336;
+  color: #f44336;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 8px;
+}
+
+.cancel:hover {
+  background-color: #f44336;
+  color: white;
+  padding: 14px 28px;
+  font-size: 16px;
+  cursor: pointer;
+  margin: 10px;
+  border-radius: 8px;
+}
 
 /* GST Section */
 h3 {
@@ -134,90 +206,6 @@ input[type="radio"] {
 }
 
 /* Responsive Design */
-@media screen and (max-width: 768px) {
-  .split {
-    width: 100%;
-    position: relative;
-  }
-
-  .left,
-  .right {
-    height: auto;
-    box-shadow: none;
-  }
-}
-.ButtonSlide{
-  display: flex;
-
-}
-.edit {
-  border-color: #2196F3;
-  color: dodgerblue;
-  border-radius: 8px;
-
-}
-.edit:hover {
-  background: #2196F3;
-  color: white;
-  border-radius: 8px;
-
-}
-.delete {
-  border-color: #f44336;
-  color: red;
-  border-radius: 8px;
-  
-}
-
-.delete:hover {
-  background: #f44336;
-  color: white;
-  border-radius: 8px;
-
-}
-.success {
-
-  border-color: #04AA6D;
-  color: green;
-  padding: 14px 28px;
-  font-size: 16px;
-  cursor: pointer;
-  margin: 10px;
-  border-radius: 8px;
-}
-
-.success:hover {
-  background-color: #04AA6D;
-  color: white;
-  padding: 14px 28px;
-  font-size: 16px;
-  cursor: pointer;
-  margin: 10px;
-  border-radius: 8px;
-
-}
-.cancel {
-
-  border-color: #f44336;
-  color: #f44336;
-  padding: 14px 28px;
-  font-size: 16px;
-  cursor: pointer;
-  margin: 10px;
-  border-radius: 8px;
-
-}
-
-.cancel:hover {
-  background-color: #f44336;
-  color: white;
-  padding: 14px 28px;
-  font-size: 16px;
-  cursor: pointer;
-  margin: 10px;
-  border-radius: 8px;
-
-}
 @media screen and (max-width: 768px) {
   .split {
     width: 100%;
