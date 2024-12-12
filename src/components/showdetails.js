@@ -1,21 +1,52 @@
 import { useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
-import DeleteForeverOutlinedIcon from '@mui/icons-material/DeleteForeverOutlined';
-import EditNoteOutlinedIcon from '@mui/icons-material/EditNoteOutlined';
-import LocalPrintshopOutlinedIcon from '@mui/icons-material/LocalPrintshopOutlined';
-export default function ShowDetails({ items, customerDetails, sum, gst, Edit, Delete }) {
-  const [showAction,setShowAction]=useState(true);
+import DeleteForeverOutlinedIcon from "@mui/icons-material/DeleteForeverOutlined";
+import EditNoteOutlinedIcon from "@mui/icons-material/EditNoteOutlined";
+import LocalPrintshopOutlinedIcon from "@mui/icons-material/LocalPrintshopOutlined";
+export default function ShowDetails({
+  items,
+  customerDetails,
+  sum,
+  gst,
+  Edit,
+  Delete,
+  invoiceNumber,
+  setInvoiceNumber,
+  dates,
+}) {
+  const [showAction, setShowAction] = useState(true);
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    onBeforePrint:()=>setShowAction(false),
-    onAfterPrint:()=>setShowAction(true),
-  })
+    documentTitle: customerDetails.customerName+invoiceNumber,
+    onBeforePrint: () => {
+      setShowAction(false);
+      const currentDate = new Date();
+      const date = `${currentDate.getFullYear()}${(currentDate.getMonth() + 1)
+        .toString()
+        .padStart(2, "0")}${currentDate.getDate().toString().padStart(2, "0")}`;
+
+      const time = `${currentDate
+        .getHours()
+        .toString()
+        .padStart(2, "0")}${currentDate
+        .getMinutes()
+        .toString()
+        .padStart(2, "0")}${currentDate
+        .getSeconds()
+        .toString()
+        .padStart(2, "0")}`;
+
+      const invoice = `${date}${time}`;
+      setInvoiceNumber(invoice);
+    },
+    onAfterPrint: () => setShowAction(true),
+  });
   const total = sum + (gst * sum) / 100;
 
   return (
     <>
-    <style>
+      <style>
         {`
           @media print {
             .ButtonSlide {
@@ -24,12 +55,26 @@ export default function ShowDetails({ items, customerDetails, sum, gst, Edit, De
           }
         `}
       </style>
-      <div >
+      <div>
         <div ref={componentRef}>
           <h1>Invoice</h1>
-          <p>Name: {customerDetails.customerName}</p>
-          <p>Address: {customerDetails.address}</p>
-          <table style={{ border: '3px dotted black', borderCollapse: 'collapse' }}>
+          <p>Invoice no. : {invoiceNumber}</p>
+          <p>
+            <b>Name:</b> {customerDetails.customerName}
+          </p>
+          <p>
+            <b>Phone:</b> {customerDetails.phone}
+          </p>
+          <p>
+            <b>Address:</b> {customerDetails.address}
+          </p>
+          <p>
+            <b>Date : </b> start : {dates.start} {"        ____    "} end :{" "}
+            {dates.end}
+          </p>
+          <table
+            style={{ border: "3px dotted black", borderCollapse: "collapse" }}
+          >
             <thead>
               <tr>
                 <th>Item Name</th>
@@ -46,16 +91,21 @@ export default function ShowDetails({ items, customerDetails, sum, gst, Edit, De
                     <td>{item.name}</td>
                     <td>₹{item.price}</td>
                     <td>{item.quantity}</td>
-                    <td>₹{(item.price * item.quantity)}</td>
-                    <td >
-                      {showAction && <div className="ButtonSlide">
+                    <td>₹{item.price * item.quantity}</td>
+                    <td>
+                      {showAction && (
+                        <div className="ButtonSlide">
                           <button className="edit" onClick={() => Edit(index)}>
                             <EditNoteOutlinedIcon />
                           </button>
-                          <button className="delete" onClick={() => Delete(index)}>
+                          <button
+                            className="delete"
+                            onClick={() => Delete(index)}
+                          >
                             <DeleteForeverOutlinedIcon />
                           </button>
-                      </div>}
+                        </div>
+                      )}
                     </td>
                   </tr>
                 ))
@@ -87,13 +137,14 @@ export default function ShowDetails({ items, customerDetails, sum, gst, Edit, De
               </tr>
             </tbody>
           </table>
-
         </div>
       </div>
 
-     { (items.length>0 && <button className="success" onClick={handlePrint}><LocalPrintshopOutlinedIcon /></button>)}
-
+      {items.length > 0 && (
+        <button className="success" onClick={handlePrint}>
+          <LocalPrintshopOutlinedIcon />
+        </button>
+      )}
     </>
-
   );
 }
