@@ -14,31 +14,28 @@ export default function ShowDetails({
   setInvoiceNumber,
   dates,
 }) {
+  const currentDate = new Date();
+  const date = `${currentDate.getFullYear()}${(currentDate.getMonth() + 1)
+    .toString()
+    .padStart(2, "0")}${currentDate.getDate().toString().padStart(2, "0")}`;
+
+  const time = `${currentDate
+    .getHours()
+    .toString()
+    .padStart(2, "0")}${currentDate
+    .getMinutes()
+    .toString()
+    .padStart(2, "0")}${currentDate.getSeconds().toString().padStart(2, "0")}`;
+
+  const invoice = `${date}${time}`;
+  setInvoiceNumber(invoice);
   const [showAction, setShowAction] = useState(true);
   const componentRef = useRef(null);
   const handlePrint = useReactToPrint({
     content: () => componentRef.current,
-    documentTitle: customerDetails.customerName+invoiceNumber,
+    documentTitle: customerDetails.customerName + invoiceNumber,
     onBeforePrint: () => {
       setShowAction(false);
-      const currentDate = new Date();
-      const date = `${currentDate.getFullYear()}${(currentDate.getMonth() + 1)
-        .toString()
-        .padStart(2, "0")}${currentDate.getDate().toString().padStart(2, "0")}`;
-
-      const time = `${currentDate
-        .getHours()
-        .toString()
-        .padStart(2, "0")}${currentDate
-        .getMinutes()
-        .toString()
-        .padStart(2, "0")}${currentDate
-        .getSeconds()
-        .toString()
-        .padStart(2, "0")}`;
-
-      const invoice = `${date}${time}`;
-      setInvoiceNumber(invoice);
     },
     onAfterPrint: () => setShowAction(true),
   });
@@ -69,7 +66,7 @@ export default function ShowDetails({
             <b>Address:</b> {customerDetails.address}
           </p>
           <p>
-            <b>Date : </b> start : {dates.start} {"        ____    "} end :{" "}
+             Ordered : {dates.start} {"        ____    "} Order Delivered :{" "}
             {dates.end}
           </p>
           <table

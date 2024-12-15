@@ -11,6 +11,7 @@ export default function App() {
   });
   const gstOptions = [0, 0.25, 5, 18, 12, 28];
   const [invoiceNumber, setInvoiceNumber] = useState();
+  
   const [invoiceData, setInvoiceData] = useState({
     items: [],
     total: 0,
